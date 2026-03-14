@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OG Image Generator - Le Structureur</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: sans-serif;
+        }
+        .instructions {
+            color: #999;
+            margin-bottom: 24px;
+            font-size: 14px;
+            text-align: center;
+        }
+        .og-image {
+            width: 1200px;
+            height: 630px;
+            background: #0a0a0f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .og-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 50% 40%, rgba(184, 148, 46, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .og-border {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            right: 24px;
+            bottom: 24px;
+            border: 1px solid rgba(184, 148, 46, 0.15);
+        }
+        .og-title {
+            font-family: Georgia, 'Times New Roman', 'Playfair Display', serif;
+            font-size: 82px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -1px;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+        .og-title .dot {
+            color: #b8942e;
+        }
+        .og-subtitle {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 26px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.45);
+            letter-spacing: 3px;
+            text-transform: none;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .og-line {
+            width: 60px;
+            height: 2px;
+            background: #b8942e;
+            margin-top: 32px;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <p class="instructions">
+        Screenshot the box below at exactly 1200x630px and save as <strong>og-image.png</strong><br>
+        Tip: In Chrome DevTools, use device toolbar to set viewport to 1200px wide, then screenshot just the element.
+    </p>
+    <div class="og-image" id="og-image">
+        <div class="og-border"></div>
+        <div class="og-title">Le Structureur<span class="dot">.</span></div>
+        <div class="og-subtitle">La finance vue de l'int&#233;rieur</div>
+        <div class="og-line"></div>
+    </div>
+</body>
+</html>
