@@ -413,6 +413,69 @@ body {
 
 .cta-box a:hover { opacity: 0.85; }
 
+/* ===== NEWSLETTER SECTION ===== */
+.newsletter-section {
+    background: var(--text);
+    color: var(--bg);
+    padding: 60px 24px;
+    text-align: center;
+}
+
+.newsletter-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.newsletter-inner h2 {
+    font-family: var(--sans);
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--bg);
+}
+
+.newsletter-inner p {
+    font-size: 17px;
+    color: #ccc;
+    margin-bottom: 24px;
+}
+
+/* ===== READING TIME ===== */
+.reading-time {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--text-light);
+    margin-left: 12px;
+}
+
+/* ===== ARTICLE NAV ===== */
+.article-nav {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+}
+
+.article-nav p {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+    margin-bottom: 8px;
+}
+
+.article-nav a {
+    font-family: var(--sans);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.article-nav a:hover { text-decoration: underline; }
+
 /* ===== FOOTER ===== */
 .site-footer {
     border-top: 1px solid var(--border);
