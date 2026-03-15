@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crise Iran : impact sur les marchés et votre épargne | Le Structureur</title>
+    <meta name="description" content="Suivi en continu de la crise iranienne et son impact sur les marchés financiers. Indices, pétrole, volatilité, or : les données et l'analyse d'un ancien structureur.">
+    <meta property="og:title" content="Crise Iran : impact sur les marchés et votre épargne">
+    <meta property="og:description" content="Suivi en continu de la crise iranienne et son impact sur les marchés. Données, analyse, et ce que ça change pour votre épargne.">
+    <meta property="og:type" content="article">
+    <link rel="canonical" href="https://lestructureur.fr/articles/iran/">
+    <meta property="og:image" content="https://lestructureur.fr/images/og-image.png">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Crise Iran : impact sur les marchés et votre épargne",
+        "author": { "@type": "Person", "name": "Adrien" },
+        "datePublished": "2026-03-15",
+        "dateModified": "2026-03-15",
+        "publisher": { "@type": "Organization", "name": "Le Structureur" },
+        "description": "Suivi en continu de la crise iranienne et son impact sur les marchés financiers."
+    }
+    </script>
+    <script defer data-domain="lestructureur.fr" src="https://plausible.io/js/script.js"></script>
+    <style>
+        .hub-hero {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 140px 24px 60px;
+            position: relative;
+            text-align: center;
+        }
+
+        .hub-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c0392b, transparent);
+        }
+
+        .hub-hero .tag {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #e74c3c;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hub-hero .tag::before {
+            content: '';
+            width: 8px; height: 8px;
+            background: #e74c3c;
+            border-radius: 50%;
+            animation: pulse-dot 2s ease infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hub-hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(36px, 5vw, 52px);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hub-hero .subtitle {
+            font-size: 18px;
+            color: rgba(245, 240, 235, 0.55);
+            max-width: 560px;
+            margin: 0 auto 24px;
+            line-height: 1.6;
+        }
+
+        .hub-hero .last-update {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: rgba(245, 240, 235, 0.3);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            max-width: var(--wide);
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .dash-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dash-card .dash-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .dash-card .dash-value {
+            font-family: var(--serif);
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--ink);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .dash-card .dash-change {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .dash-change.up { color: #2d8a4e; }
+        .dash-change.down { color: #c0392b; }
+        .dash-change.neutral { color: var(--text-light); }
+
+        /* Timeline */
+        .timeline-section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px 60px;
+        }
+
+        .timeline-header {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 32px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--ink);
+        }
+
+        .timeline-item {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-date {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .timeline-item h3 {
+            font-family: var(--serif);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--ink);
+        }
+
+        .timeline-item p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .timeline-item .impact-tag {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+
+        .impact-tag.high {
+            background: #fceeed;
+            color: #c0392b;
+        }
+
+        .impact-tag.medium {
+            background: #f7f3ea;
+            color: #b8960c;
+        }
+
+        .impact-tag.low {
+            background: #eef6ee;
+            color: #2d8a4e;
+        }
+
+        /* Analysis link */
+        .analysis-section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px 60px;
+        }
+
+        .analysis-header {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--ink);
+        }
+
+        .analysis-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 28px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .analysis-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .analysis-card .tag {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .analysis-card h3 {
+            font-family: var(--serif);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .analysis-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+            .hub-hero { padding: 120px 20px 48px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<header class="site-header">
+    <div class="header-inner">
+        <a href="/" class="site-title">Le Structureur<span>.</span></a>
+        <nav class="site-nav">
+            <a href="/#articles">Articles</a>
+            <a href="/a-propos.html">À propos</a>
+            <a href="https://lestructureur.substack.com" target="_blank" class="btn-subscribe">S'abonner</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hub-hero">
+    <p class="tag">Suivi en direct</p>
+    <h1>Crise Iran : l'impact sur les marchés</h1>
+    <p class="subtitle">Suivi continu de la situation géopolitique et de ses conséquences sur les marchés financiers, le pétrole, et votre épargne.</p>
+    <p class="last-update">Dernière mise à jour : 15 mars 2026</p>
+</section>
+
+<section class="dashboard">
+    <div class="dashboard-grid">
+        <div class="dash-card">
+            <p class="dash-label">Brent ($/baril)</p>
+            <p class="dash-value">—</p>
+            <p class="dash-change neutral">données à venir</p>
+        </div>
+        <div class="dash-card">
+            <p class="dash-label">VIX</p>
+            <p class="dash-value">—</p>
+            <p class="dash-change neutral">données à venir</p>
+        </div>
+        <div class="dash-card">
+            <p class="dash-label">Or ($/oz)</p>
+            <p class="dash-value">—</p>
+            <p class="dash-change neutral">données à venir</p>
+        </div>
+        <div class="dash-card">
+            <p class="dash-label">Euro Stoxx 50</p>
+            <p class="dash-value">—</p>
+            <p class="dash-change neutral">données à venir</p>
+        </div>
+    </div>
+</section>
+
+<section class="timeline-section">
+    <p class="timeline-header">Chronologie des événements</p>
+
+    <div class="timeline-item">
+        <p class="timeline-date">15 mars 2026</p>
+        <h3>Lancement du suivi</h3>
+        <p>Ouverture de cette page de suivi en continu. Les événements clés et leur impact sur les marchés seront documentés ici au fur et à mesure des développements.</p>
+        <span class="impact-tag medium">En attente de données</span>
+    </div>
+</section>
+
+<section class="analysis-section">
+    <p class="analysis-header">Analyses approfondies</p>
+
+    <a href="/articles/iran-marches-epargne/" class="analysis-card">
+        <p class="tag">Article fondateur</p>
+        <h3>Iran, marchés, votre épargne : ce qui se passe vraiment</h3>
+        <p>Comment un choc géopolitique impacte concrètement les marchés et ce que ça change pour votre épargne.</p>
+    </a>
+</section>
+
+<div style="max-width: var(--max-width); margin: 0 auto; padding: 0 24px 60px;">
+    <div class="cta-box">
+        <h3>Suivez la situation en temps réel</h3>
+        <p>Recevez les mises à jour par email dès qu'un événement significatif impacte les marchés.</p>
+        <iframe src="https://lestructureur.substack.com/embed" width="100%" height="150" style="border:none; background:transparent;" frameborder="0" scrolling="no"></iframe>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <p>Le Structureur © 2026 · <a href="https://lestructureur.substack.com" target="_blank">Newsletter</a></p>
+</footer>
+
+<script src="/js/main.js" defer></script>
+</body>
+</html>
