@@ -22,6 +22,8 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html { scroll-behavior: smooth; }
+
 ::selection {
     background: var(--gold);
     color: white;
@@ -38,6 +40,17 @@ body {
 }
 
 /* ===== HEADER ===== */
+/* ===== READING PROGRESS BAR ===== */
+.progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    z-index: 200;
+    transition: width 0.1s linear;
+}
+
 .site-header {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -45,12 +58,23 @@ body {
     background: rgba(250, 248, 245, 0.92);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s ease, padding 0.3s ease;
+}
+
+.site-header.scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.site-header.scrolled .header-inner {
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 
 .header-inner {
     max-width: var(--wide);
     margin: 0 auto;
     padding: 16px 32px;
+    transition: padding 0.3s ease;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -676,6 +700,52 @@ body {
 }
 
 .article-nav a:hover { color: var(--gold); }
+
+/* ===== ARTICLE BODY LINKS ===== */
+.article-body a {
+    color: var(--ink);
+    text-decoration: none;
+    background-image: linear-gradient(var(--gold), var(--gold));
+    background-size: 100% 2px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease, color 0.2s;
+}
+
+.article-body a:hover {
+    color: var(--gold);
+    background-size: 100% 100%;
+    background-image: linear-gradient(var(--gold-light), var(--gold-light));
+    color: var(--ink);
+}
+
+/* ===== H2 DECORATION IN ARTICLES ===== */
+.article-body h2::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 12px;
+}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* stagger children */
+.reveal-stagger > .reveal:nth-child(1) { transition-delay: 0s; }
+.reveal-stagger > .reveal:nth-child(2) { transition-delay: 0.1s; }
+.reveal-stagger > .reveal:nth-child(3) { transition-delay: 0.2s; }
+.reveal-stagger > .reveal:nth-child(4) { transition-delay: 0.3s; }
 
 /* ===== ANIMATIONS ===== */
 @keyframes fadeUp {
