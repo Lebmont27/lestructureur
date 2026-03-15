@@ -487,27 +487,41 @@
         const neutralAmount = base;
         const badAmount = base - (base * loss / 100);
 
-        const maxDelta = Math.max(Math.abs(goodAmount - base), Math.abs(badAmount - base));
+        const maxVal = goodAmount;
+        const minVal = Math.min(badAmount, 0);
+        const range = maxVal - minVal;
         const chartHeight = 300;
-        const halfHeight = chartHeight / 2;
+
+        function yPos(val) {
+            return chartHeight - ((val - minVal) / range) * chartHeight;
+        }
+
+        const zeroY = yPos(base);
+        const goodY = yPos(goodAmount);
+        const badY = yPos(badAmount);
+        const goodBarH = zeroY - goodY;
+        const badBarH = badY - zeroY;
 
         chart.innerHTML = `
-            <div class="chart-zero-line"></div>
-            <div class="chart-zero-label">10 000€</div>
-            <div class="chart-bar-group" style="height: ${chartHeight}px;">
-                <div class="chart-bar-value" style="color: #2d8a4e;">${goodAmount.toLocaleString('fr-FR')}€</div>
-                <div class="chart-bar positive" style="height: ${((goodAmount - base) / maxDelta) * halfHeight}px; position: absolute; bottom: ${halfHeight}px;"></div>
-                <div class="chart-bar-label">Favorable</div>
+            <div style="position:absolute;left:0;right:0;top:${zeroY}px;height:1px;background:var(--border);"></div>
+            <div style="position:absolute;left:-45px;top:${zeroY}px;transform:translateY(-50%);font-family:var(--mono);font-size:10px;color:var(--text-light);">10 000€</div>
+
+            <div style="position:absolute;left:5%;width:28%;text-align:center;">
+                <div style="position:absolute;top:${goodY - 28}px;width:100%;font-family:var(--serif);font-size:16px;font-weight:700;color:#2d8a4e;">${goodAmount.toLocaleString('fr-FR')}€</div>
+                <div style="position:absolute;top:${goodY}px;left:20%;width:60%;height:${goodBarH}px;background:#2d8a4e;border-radius:4px 4px 0 0;"></div>
+                <div style="position:absolute;top:${chartHeight + 8}px;width:100%;font-family:var(--mono);font-size:11px;color:var(--text-secondary);">Favorable</div>
             </div>
-            <div class="chart-bar-group" style="height: ${chartHeight}px;">
-                <div class="chart-bar-value" style="color: #b8960c;">${neutralAmount.toLocaleString('fr-FR')}€</div>
-                <div class="chart-bar zero" style="position: absolute; bottom: ${halfHeight - 2}px;"></div>
-                <div class="chart-bar-label">Intermédiaire</div>
+
+            <div style="position:absolute;left:36%;width:28%;text-align:center;">
+                <div style="position:absolute;top:${zeroY - 28}px;width:100%;font-family:var(--serif);font-size:16px;font-weight:700;color:#b8960c;">${neutralAmount.toLocaleString('fr-FR')}€</div>
+                <div style="position:absolute;top:${zeroY - 2}px;left:20%;width:60%;height:4px;background:#b8960c;border-radius:2px;"></div>
+                <div style="position:absolute;top:${chartHeight + 8}px;width:100%;font-family:var(--mono);font-size:11px;color:var(--text-secondary);">Intermédiaire</div>
             </div>
-            <div class="chart-bar-group" style="height: ${chartHeight}px;">
-                <div class="chart-bar-value" style="color: #c0392b;">${badAmount.toLocaleString('fr-FR')}€</div>
-                <div class="chart-bar negative" style="height: ${((base - badAmount) / maxDelta) * halfHeight}px; top: ${halfHeight}px;"></div>
-                <div class="chart-bar-label">Défavorable</div>
+
+            <div style="position:absolute;left:67%;width:28%;text-align:center;">
+                <div style="position:absolute;top:${badY + 8}px;width:100%;font-family:var(--serif);font-size:16px;font-weight:700;color:#c0392b;">${badAmount.toLocaleString('fr-FR')}€</div>
+                <div style="position:absolute;top:${zeroY}px;left:20%;width:60%;height:${badBarH}px;background:#c0392b;border-radius:0 0 4px 4px;"></div>
+                <div style="position:absolute;top:${chartHeight + 8}px;width:100%;font-family:var(--mono);font-size:11px;color:var(--text-secondary);">Défavorable</div>
             </div>
         `;
     }
