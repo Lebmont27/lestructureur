@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulateur autocall : visualisez les scénarios | Le Structureur</title>
+    <meta name="description" content="Comprenez un autocall en 30 secondes. Entrez un coupon et une barrière, visualisez les scénarios favorables, intermédiaires et défavorables.">
+    <meta property="og:title" content="Simulateur autocall : visualisez les scénarios">
+    <meta property="og:description" content="Comprenez un autocall en 30 secondes. Entrez vos paramètres, visualisez les scénarios.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://lestructureur.fr/outils/simulateur-autocall/">
+    <meta property="og:image" content="https://lestructureur.fr/images/og-image.png">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Simulateur Autocall",
+        "author": { "@type": "Person", "name": "Adrien" },
+        "publisher": { "@type": "Organization", "name": "Le Structureur" },
+        "description": "Simulateur de scénarios pour comprendre le fonctionnement d'un autocall."
+    }
+    </script>
+    <script defer data-domain="lestructureur.fr" src="https://plausible.io/js/script.js"></script>
+    <style>
+        .sim-hero {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 140px 24px 60px;
+            text-align: center;
+        }
+
+        .sim-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .sim-hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .sim-hero h1 em { color: var(--gold); font-style: italic; }
+
+        .sim-hero p {
+            font-size: 18px;
+            color: rgba(245, 240, 235, 0.55);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .sim-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+
+        /* Controls */
+        .sim-controls {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .sim-controls h2 {
+            font-family: var(--serif);
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--ink);
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .control-group label {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .control-group .value-display {
+            font-family: var(--serif);
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--ink);
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .control-group .value-display span {
+            font-size: 20px;
+            color: var(--text-light);
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .control-group input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .control-hint {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 6px;
+        }
+
+        /* Scenarios */
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .scenario-card {
+            border-radius: 8px;
+            padding: 28px;
+            text-align: center;
+        }
+
+        .scenario-card.good {
+            background: #eef6ee;
+            border: 1px solid #c8e6c9;
+        }
+
+        .scenario-card.neutral {
+            background: #f7f3ea;
+            border: 1px solid #e8dcc8;
+        }
+
+        .scenario-card.bad {
+            background: #fceeed;
+            border: 1px solid #f5c6c6;
+        }
+
+        .scenario-card .sc-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .scenario-card.good .sc-label { color: #2d8a4e; }
+        .scenario-card.neutral .sc-label { color: #b8960c; }
+        .scenario-card.bad .sc-label { color: #c0392b; }
+
+        .scenario-card .sc-market {
+            font-family: var(--sans);
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .scenario-card .sc-result {
+            font-family: var(--serif);
+            font-size: 32px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .scenario-card.good .sc-result { color: #2d8a4e; }
+        .scenario-card.neutral .sc-result { color: #b8960c; }
+        .scenario-card.bad .sc-result { color: #c0392b; }
+
+        .scenario-card .sc-detail {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Visual chart */
+        .chart-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .chart-section h2 {
+            font-family: var(--serif);
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--ink);
+        }
+
+        .chart-canvas {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            border-bottom: 2px solid var(--ink);
+            border-left: 2px solid var(--ink);
+        }
+
+        .chart-bar-group {
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 28%;
+        }
+
+        .chart-bar-group:nth-child(1) { left: 5%; }
+        .chart-bar-group:nth-child(2) { left: 36%; }
+        .chart-bar-group:nth-child(3) { left: 67%; }
+
+        .chart-bar {
+            width: 60%;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.5s ease;
+            position: relative;
+        }
+
+        .chart-bar.positive { background: #2d8a4e; }
+        .chart-bar.zero { background: #b8960c; height: 4px !important; }
+        .chart-bar.negative {
+            background: #c0392b;
+            border-radius: 0 0 4px 4px;
+            position: absolute;
+            top: 0;
+        }
+
+        .chart-bar-label {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .chart-bar-value {
+            font-family: var(--serif);
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .chart-zero-line {
+            position: absolute;
+            left: 0; right: 0;
+            top: 50%;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .chart-zero-label {
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-light);
+        }
+
+        /* Explanation */
+        .sim-explanation {
+            background: var(--cream);
+            border-radius: 8px;
+            padding: 28px;
+            margin-bottom: 32px;
+        }
+
+        .sim-explanation h3 {
+            font-family: var(--serif);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--ink);
+        }
+
+        .sim-explanation p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .sim-explanation p:last-child { margin-bottom: 0; }
+
+        /* Disclaimer */
+        .sim-disclaimer {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-light);
+            text-align: center;
+            padding: 20px;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .controls-grid { grid-template-columns: 1fr; gap: 20px; }
+            .scenarios-grid { grid-template-columns: 1fr; }
+            .sim-hero { padding: 120px 20px 48px; }
+            .sim-container { padding: 32px 20px 60px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<header class="site-header">
+    <div class="header-inner">
+        <a href="/" class="site-title">Le Structureur<span>.</span></a>
+        <nav class="site-nav">
+            <a href="/#articles">Articles</a>
+            <a href="/articles/iran/">Iran</a>
+            <a href="/a-propos.html">À propos</a>
+            <a href="https://lestructureur.substack.com" target="_blank" class="btn-subscribe">S'abonner</a>
+        </nav>
+    </div>
+</header>
+
+<section class="sim-hero">
+    <h1>Simulateur <em>autocall</em></h1>
+    <p>Ajustez les paramètres, visualisez les scénarios. Comprenez le produit en 30 secondes.</p>
+</section>
+
+<div class="sim-container">
+
+    <div class="sim-controls">
+        <h2>Paramètres du produit</h2>
+        <div class="controls-grid">
+            <div class="control-group">
+                <label>Coupon annuel</label>
+                <div class="value-display"><span id="coupon-display">7</span><span>%</span></div>
+                <input type="range" id="coupon-slider" min="3" max="15" value="7" step="0.5">
+                <p class="control-hint">Rendement versé si le produit est rappelé</p>
+            </div>
+            <div class="control-group">
+                <label>Barrière de protection</label>
+                <div class="value-display"><span id="barrier-display">40</span><span>%</span></div>
+                <input type="range" id="barrier-slider" min="20" max="60" value="40" step="5">
+                <p class="control-hint">Perte maximale de l'indice avant perte en capital</p>
+            </div>
+            <div class="control-group">
+                <label>Durée de rappel</label>
+                <div class="value-display"><span id="duration-display">2</span><span> ans</span></div>
+                <input type="range" id="duration-slider" min="1" max="10" value="2" step="1">
+                <p class="control-hint">Année à laquelle le produit est rappelé</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="scenarios-grid">
+        <div class="scenario-card good">
+            <p class="sc-label">Scénario favorable</p>
+            <p class="sc-market">L'indice est au dessus de son niveau initial</p>
+            <p class="sc-result" id="good-result">+14%</p>
+            <p class="sc-detail" id="good-detail">Capital remboursé + 2 coupons de 7%</p>
+        </div>
+        <div class="scenario-card neutral">
+            <p class="sc-label">Scénario intermédiaire</p>
+            <p class="sc-market">L'indice est en baisse mais au dessus de la barrière</p>
+            <p class="sc-result" id="neutral-result">0%</p>
+            <p class="sc-detail" id="neutral-detail">Capital remboursé, aucun coupon versé</p>
+        </div>
+        <div class="scenario-card bad">
+            <p class="sc-label">Scénario défavorable</p>
+            <p class="sc-market" id="bad-market">L'indice a perdu plus de 40%</p>
+            <p class="sc-result" id="bad-result">-50%</p>
+            <p class="sc-detail" id="bad-detail">Perte en capital proportionnelle à la baisse de l'indice</p>
+        </div>
+    </div>
+
+    <div class="chart-section">
+        <h2>Comparaison visuelle sur 10 000€ investis</h2>
+        <div class="chart-canvas" id="chart">
+            <div class="chart-zero-line"></div>
+            <div class="chart-zero-label">10 000€</div>
+        </div>
+    </div>
+
+    <div class="sim-explanation">
+        <h3>Comment lire ce simulateur</h3>
+        <p>Ce simulateur illustre les trois issues possibles d'un autocall à la date de rappel que vous avez sélectionnée. Le scénario favorable suppose que l'indice est revenu au dessus de son niveau initial : vous récupérez votre capital plus les coupons accumulés. Le scénario intermédiaire suppose que l'indice est en baisse mais n'a pas franchi la barrière de protection : vous récupérez votre capital sans coupon. Le scénario défavorable suppose que l'indice a franchi la barrière : vous subissez la perte.</p>
+        <p>Les paramètres réels d'un produit dépendent des conditions de marché au moment de sa construction (niveau de volatilité, taux d'intérêt, dividendes). Ce simulateur ne constitue pas une recommandation d'investissement. Pour comprendre en détail le fonctionnement d'un autocall, <a href="/articles/autocall-comment-ca-marche/">lisez l'article dédié</a>.</p>
+    </div>
+
+    <div class="cta-box">
+        <h3>Vous voulez aller plus loin ?</h3>
+        <p>Chaque semaine, la finance décryptée par quelqu'un qui a fabriqué les produits que l'on vous vend.</p>
+        <iframe src="https://lestructureur.substack.com/embed" width="100%" height="150" style="border:none; background:transparent;" frameborder="0" scrolling="no"></iframe>
+    </div>
+
+    <p class="sim-disclaimer">Ce simulateur est un outil pédagogique. Il ne constitue ni un conseil en investissement, ni une offre de produit financier. Les scénarios présentés sont simplifiés et ne prennent pas en compte les frais, la fiscalité ou les conditions spécifiques d'un produit réel.</p>
+</div>
+
+<footer class="site-footer">
+    <p>Le Structureur © 2026 · <a href="https://lestructureur.substack.com" target="_blank">Newsletter</a></p>
+</footer>
+
+<script src="/js/main.js" defer></script>
+<script>
+    const couponSlider = document.getElementById('coupon-slider');
+    const barrierSlider = document.getElementById('barrier-slider');
+    const durationSlider = document.getElementById('duration-slider');
+    const couponDisplay = document.getElementById('coupon-display');
+    const barrierDisplay = document.getElementById('barrier-display');
+    const durationDisplay = document.getElementById('duration-display');
+
+    function update() {
+        const coupon = parseFloat(couponSlider.value);
+        const barrier = parseInt(barrierSlider.value);
+        const duration = parseInt(durationSlider.value);
+
+        couponDisplay.textContent = coupon;
+        barrierDisplay.textContent = barrier;
+        durationDisplay.textContent = duration;
+
+        const totalReturn = coupon * duration;
+        const lossExample = barrier + 10;
+
+        // Scenario cards
+        document.getElementById('good-result').textContent = '+' + totalReturn + '%';
+        document.getElementById('good-detail').textContent = 'Capital remboursé + ' + duration + ' coupon' + (duration > 1 ? 's' : '') + ' de ' + coupon + '%';
+
+        document.getElementById('neutral-result').textContent = '0%';
+        document.getElementById('neutral-detail').textContent = 'Capital remboursé, aucun coupon versé';
+
+        document.getElementById('bad-market').textContent = "L'indice a perdu plus de " + barrier + '%';
+        document.getElementById('bad-result').textContent = '-' + lossExample + '%';
+        document.getElementById('bad-detail').textContent = 'Perte en capital proportionnelle à la baisse de l\'indice';
+
+        // Chart
+        drawChart(totalReturn, lossExample);
+    }
+
+    function drawChart(gain, loss) {
+        const chart = document.getElementById('chart');
+        const base = 10000;
+        const goodAmount = base + (base * gain / 100);
+        const neutralAmount = base;
+        const badAmount = base - (base * loss / 100);
+
+        const maxDelta = Math.max(Math.abs(goodAmount - base), Math.abs(badAmount - base));
+        const chartHeight = 300;
+        const halfHeight = chartHeight / 2;
+
+        chart.innerHTML = `
+            <div class="chart-zero-line"></div>
+            <div class="chart-zero-label">10 000€</div>
+            <div class="chart-bar-group" style="height: ${chartHeight}px;">
+                <div class="chart-bar-value" style="color: #2d8a4e;">${goodAmount.toLocaleString('fr-FR')}€</div>
+                <div class="chart-bar positive" style="height: ${((goodAmount - base) / maxDelta) * halfHeight}px; position: absolute; bottom: ${halfHeight}px;"></div>
+                <div class="chart-bar-label">Favorable</div>
+            </div>
+            <div class="chart-bar-group" style="height: ${chartHeight}px;">
+                <div class="chart-bar-value" style="color: #b8960c;">${neutralAmount.toLocaleString('fr-FR')}€</div>
+                <div class="chart-bar zero" style="position: absolute; bottom: ${halfHeight - 2}px;"></div>
+                <div class="chart-bar-label">Intermédiaire</div>
+            </div>
+            <div class="chart-bar-group" style="height: ${chartHeight}px;">
+                <div class="chart-bar-value" style="color: #c0392b;">${badAmount.toLocaleString('fr-FR')}€</div>
+                <div class="chart-bar negative" style="height: ${((base - badAmount) / maxDelta) * halfHeight}px; top: ${halfHeight}px;"></div>
+                <div class="chart-bar-label">Défavorable</div>
+            </div>
+        `;
+    }
+
+    couponSlider.addEventListener('input', update);
+    barrierSlider.addEventListener('input', update);
+    durationSlider.addEventListener('input', update);
+
+    update();
+</script>
+</body>
+</html>
