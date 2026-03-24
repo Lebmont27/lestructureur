@@ -280,10 +280,129 @@
             line-height: 1.6;
         }
 
+        /* Model section */
+        .model-section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px 60px;
+        }
+
+        .regime-bar {
+            display: flex;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .regime-segment {
+            flex: 1;
+            padding: 14px 0;
+            text-align: center;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .regime-segment:nth-child(1) { background: #44cc44; }
+        .regime-segment:nth-child(2) { background: #888888; }
+        .regime-segment:nth-child(3) { background: #ffaa00; }
+        .regime-segment:nth-child(4) { background: #ff4444; }
+
+        .regime-segment:not(.active) { opacity: 0.25; }
+
+        .regime-segment.active {
+            color: white;
+            font-weight: 700;
+            font-size: 11px;
+            opacity: 1;
+        }
+
+        .regime-context {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .regime-proba {
+            font-family: var(--serif);
+            font-size: 22px;
+            font-weight: 900;
+            color: #ff4444;
+            margin-bottom: 6px;
+        }
+
+        .regime-detail {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: var(--text-light);
+        }
+
+        .proba-table-wrap {
+            overflow-x: auto;
+            margin-bottom: 24px;
+        }
+
+        .proba-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .proba-table th, .proba-table td {
+            padding: 12px 16px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .proba-table th {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
+        }
+
+        .proba-table td:first-child {
+            text-align: left;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .proba-table td {
+            font-family: var(--serif);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .proba-table .hot { color: #c0392b; }
+
+        .model-context {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 20px;
+        }
+
+        .model-disclaimer {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            line-height: 1.8;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
             .hub-hero { padding: 120px 20px 48px; }
+            .proba-table th, .proba-table td { padding: 10px 8px; font-size: 14px; }
+            .proba-table td:first-child { font-size: 11px; }
         }
     </style>
 </head>
@@ -307,41 +426,147 @@
     <p class="tag">Suivi en direct</p>
     <h1>Crise Iran : l'impact sur les marchés</h1>
     <p class="subtitle">Suivi continu de la situation géopolitique et de ses conséquences sur les marchés financiers, le pétrole, et votre épargne.</p>
-    <p class="last-update">Dernière mise à jour : 23 mars 2026 (jour 24)</p>
+    <p class="last-update">Dernière mise à jour : 24 mars 2026 (jour 25)</p>
 </section>
 
 <section class="dashboard">
     <div class="dashboard-grid">
         <div class="dash-card">
             <p class="dash-label">Brent ($/baril)</p>
-            <p class="dash-value">113$</p>
-            <p class="dash-change up">+64% depuis le 28 fev</p>
+            <p class="dash-value">103$</p>
+            <p class="dash-change up">+3% auj. · +42% depuis le 28 fev</p>
         </div>
         <div class="dash-card">
             <p class="dash-label">V2X</p>
-            <p class="dash-value">32</p>
+            <p class="dash-value">33,6</p>
             <p class="dash-change up">vs 20 pré-conflit</p>
         </div>
         <div class="dash-card">
             <p class="dash-label">Or ($/oz)</p>
-            <p class="dash-value">4 251$</p>
-            <p class="dash-change down">-5,4% aujourd'hui</p>
+            <p class="dash-value">4 404$</p>
+            <p class="dash-change neutral">flat · -15% depuis les plus hauts</p>
         </div>
         <div class="dash-card">
             <p class="dash-label">Euro Stoxx 50</p>
-            <p class="dash-value">5 493</p>
+            <p class="dash-value">5 524</p>
             <p class="dash-change down">-11% depuis les plus hauts</p>
         </div>
     </div>
+</section>
+
+<section class="model-section">
+    <p class="analysis-header">Modèle quantitatif</p>
+
+    <div class="regime-bar">
+        <div class="regime-segment">Risk-on</div>
+        <div class="regime-segment">Neutre</div>
+        <div class="regime-segment">Stress</div>
+        <div class="regime-segment active">Crise</div>
+    </div>
+
+    <div class="regime-context">
+        <p class="regime-proba">Régime Crise · probabilité 99,99%</p>
+        <p class="regime-detail">En crise depuis le 10 mars · durée moyenne estimée ~50 jours</p>
+    </div>
+
+    <h3 style="font-family: var(--serif); font-size: 20px; font-weight: 700; margin-bottom: 8px;">Probabilités de baisse de l'Euro Stoxx 50</h3>
+    <p style="font-size: 14px; color: var(--text-light); margin-bottom: 20px;">Depuis le niveau actuel (5 524). Simulation Monte Carlo conditionnelle au régime Crise, 10 000 trajectoires.</p>
+
+    <div class="proba-table-wrap">
+        <table class="proba-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>1 semaine</th>
+                    <th>1 mois</th>
+                    <th>3 mois</th>
+                    <th>6 mois</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Baisse &gt; 5%</td>
+                    <td>11%</td>
+                    <td class="hot">26%</td>
+                    <td class="hot">32%</td>
+                    <td class="hot">33%</td>
+                </tr>
+                <tr>
+                    <td>Baisse &gt; 10%</td>
+                    <td>1%</td>
+                    <td>11%</td>
+                    <td class="hot">21%</td>
+                    <td class="hot">24%</td>
+                </tr>
+                <tr>
+                    <td>Baisse &gt; 20%</td>
+                    <td>0%</td>
+                    <td>1%</td>
+                    <td>6%</td>
+                    <td>11%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="model-context">Si le régime de crise actuel persiste, le modèle estime environ 1 chance sur 4 que l'Euro Stoxx 50 perde plus de 10% supplémentaires d'ici trois mois (soit un SX5E sous 4 972, à environ -20% des plus hauts de février). La probabilité d'un « bear market » depuis les niveaux actuels (baisse > 20%) à six mois est de 11%.</p>
+
+    <div class="highlight-box" style="margin-bottom: 24px;">
+        <p><span class="key-point">Pour les détenteurs de produits structurés.</span> Probabilité que le SX5E touche une barrière depuis les niveaux actuels : -10% (4 972) à 1 mois : 22%. Barrière -20% (4 419) à 3 mois : 13%. Barrière -30% (3 867) à 6 mois : 7%.</p>
+    </div>
+
+    <h3 style="font-family: var(--serif); font-size: 20px; font-weight: 700; margin-bottom: 8px; margin-top: 32px;">Marchés prédictifs : probabilité de cessez-le-feu</h3>
+    <p style="font-size: 14px; color: var(--text-light); margin-bottom: 20px;">Données Polymarket (39M$ de volume échangé). « Combien le marché est prêt à parier sur un cessez-le-feu avant telle date. »</p>
+
+    <div class="proba-table-wrap">
+        <table class="proba-table">
+            <thead>
+                <tr>
+                    <th>Cessez-le-feu avant</th>
+                    <th>31 mars</th>
+                    <th>15 avril</th>
+                    <th>30 avril</th>
+                    <th>31 mai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Probabilité</td>
+                    <td>14%</td>
+                    <td class="hot">33%</td>
+                    <td class="hot">44%</td>
+                    <td class="hot">56%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="model-context">En d'autres termes : les parieurs donnent moins d'1 chance sur 7 que le conflit s'arrête d'ici fin mars, mais plus d'1 chance sur 2 d'ici fin mai. À fin 2026, la probabilité de cessez-le-feu n'est que de 74%, ce qui signifie que le marché estime à 1 chance sur 4 que le conflit dure encore en 2027.</p>
+
+    <p class="model-disclaimer">Modèle HMM Gaussien 4 régimes entraîné sur 10 ans de données Bloomberg (volatilité réalisée et implicite, spreads de crédit, courbe de taux, corrélations, inflation). Simulations Monte Carlo avec distribution t-Student multivariée et matrice de covariance Ledoit-Wolf. Ces probabilités supposent que le régime actuel persiste ; elles sont des estimations modélisées, pas des prédictions. Données Polymarket issues de marchés prédictifs décentralisés (polymarket.com).</p>
 </section>
 
 <section class="timeline-section">
     <p class="timeline-header">Chronologie des événements</p>
 
     <div class="timeline-item">
-        <p class="timeline-date">23 mars 2026 (jour 24)</p>
-        <h3>Ultimatum Trump, tout baisse en même temps</h3>
-        <p>Trump donne 48 heures à l'Iran pour rouvrir Ormuz sous peine de frappes sur les centrales. L'Iran menace de miner tout le Golfe. Brent à 113$, or en chute de 8,8% (pire journée depuis 1983), actions et obligations en baisse simultanée. Plus de 4 200 morts. Le marché entre en mode stagflation.</p>
+        <p class="timeline-date">24 mars 2026 (jour 25)</p>
+        <h3>L'Arabie Saoudite et les EAU se rapprochent de la coalition</h3>
+        <p>Le Wall Street Journal rapporte que les Saoudiens donnent accès à la base aérienne King Fahd et se disent prêts à frapper l'Iran si leurs infrastructures sont touchées. L'Iran nomme le général IRGC Zolghadr (hardliner, zéro expérience diplomatique) chef du Conseil de sécurité nationale, remplaçant Larijani tué par Israël. L'Iran instaure un péage informel sur Ormuz (~2M$/navire). Les combats continuent à pleine intensité : frappes iraniennes sur Eilat, Dimona, Tel Aviv et bases US ; le Koweït perd 7 lignes électriques ; Israël frappe Isfahan et un gazoduc. Le Liban expulse l'ambassadeur iranien. Le Pakistan se positionne comme médiateur principal. Brent remonte à 103$.</p>
+        <span class="impact-tag high">Impact élevé</span>
+    </div>
+
+    <div class="timeline-item">
+        <p class="timeline-date">23 mars — après-midi (jour 24)</p>
+        <h3>Trump suspend les frappes, le Brent chute de 14%</h3>
+        <p>Trump annonce une pause de 5 jours sur les frappes contre les infrastructures énergétiques iraniennes, citant des « conversations productives » impliquant Witkoff et Kushner. Le Brent chute de 14% à 96$ avant de remonter au dessus de 100$. S&P futures +2,5%, gaz européen -9,3%. L'Iran dément catégoriquement toute négociation via Tasnim et Fars (« guerre psychologique »). Israël continue les frappes sur Téhéran. Oman travaille sur des arrangements de passage sécurisé pour Ormuz. Trump évoque un contrôle conjoint du détroit et un deal possible en 5 jours.</p>
+        <span class="impact-tag high">Impact élevé</span>
+    </div>
+
+    <div class="timeline-item">
+        <p class="timeline-date">23 mars — matin (jour 24)</p>
+        <h3>Ultimatum, tout baisse en même temps</h3>
+        <p>L'ultimatum de 48h de Trump pour rouvrir Ormuz arrive à expiration. L'Iran menace de miner tout le Golfe Persique. Brent à 113$, or en chute de 8,8% (pire séance depuis 1983), argent -10%, actions et obligations en baisse simultanée. BCE en alerte sur l'inflation. Plus de 40 actifs énergétiques endommagés dans 9 pays selon l'AIE. Plus de 4 200 morts. Départs massifs de Téhéran vers la Caspienne.</p>
         <span class="impact-tag high">Impact élevé</span>
     </div>
 
